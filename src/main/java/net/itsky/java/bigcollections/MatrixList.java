@@ -1,12 +1,19 @@
 package net.itsky.java.bigcollections;
 
 import java.util.List;
+
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Collection;
+
+import static java.lang.Math.min;
+import static java.lang.Math.max;
 
 public class MatrixList<T> extends AbstractList<T> implements List<T> {
 
     private static long MAX_CAPACITY = (long) Integer.MAX_VALUE * (long) Integer.MAX_VALUE - 1;
+    
+    private static int DEFAULT_SIZE = 100;
 
     private List<List<T>> matrix;
 
@@ -28,7 +35,19 @@ public class MatrixList<T> extends AbstractList<T> implements List<T> {
         matrix = new ArrayList<List<T>>(ssize);
     }
 
-    public long lsize() {
+    public MatrixList() {
+		this(DEFAULT_SIZE);
+	}
+
+	public MatrixList(Collection<T> master) {
+		this(min(1, master.size()));
+		for (T t : master) {
+			add(t);
+		}
+		
+	}
+
+	public long lsize() {
         return size;
     }
 
